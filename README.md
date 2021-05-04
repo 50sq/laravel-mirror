@@ -1,11 +1,11 @@
-# Laravel Mirror
+# Mirror
 
 ## Installation
 
 You can install the package through Composer.
 
 ```bash
-composer require hotmeteor/laravel-mirror
+composer require 50sq/laravel-mirror
 ```
 
 ## Usage
@@ -14,6 +14,7 @@ composer require hotmeteor/laravel-mirror
 ## Credits
 
 - [Adam Campbell](https://github.com/hotmeteor)
+- [Yaz Jallad](https://github.com/ninjaparade)
 
 ## License
 
