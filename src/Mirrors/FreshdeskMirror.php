@@ -3,6 +3,7 @@
 namespace Mirror\Mirrors;
 
 use Illuminate\Support\Facades\Http;
+use Mirror\User;
 
 class FreshdeskMirror extends BaseMirror
 {
@@ -10,7 +11,7 @@ class FreshdeskMirror extends BaseMirror
     {
         Http::asJson()->withToken($this->config['key'])->put(
             '/',
-            [],
+            (new User())->setRaw($user)->getRaw()
         );
     }
 }
