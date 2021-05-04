@@ -1,0 +1,52 @@
+{
+  "name": "hotmeteor/laravel-mirror",
+  "description": "Push user profiles to any of your services",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "laravel",
+    "mirror",
+    "user",
+    "profiles"
+  ],
+  "authors": [
+    {
+      "name": "Adam Campbell",
+      "email": "adam@hotmeteor.com"
+    }
+  ],
+  "require": {
+    "php": "^7.3|^8.0",
+    "ext-json": "*",
+    "illuminate/support": "^7.0|^8.0"
+  },
+  "require-dev": {
+    "nunomaduro/collision": "^4.0|^5.1",
+    "orchestra/testbench": "^5.0|^6.0",
+    "phpunit/phpunit": "^8.0|^9.0",
+    "roave/security-advisories": "dev-latest"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mirror\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Mirror\\ServiceProvider"
+      ]
+    }
+  },
+  "config": {
+    "sort-packages": true
+  }
+}

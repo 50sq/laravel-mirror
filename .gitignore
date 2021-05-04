@@ -1,0 +1,8 @@
+/vendor
+.DS_Store
+.phpunit.cache
+.phpunit.dist
+composer.lock
+/assets/
+/phpunit.xml.bak
+.phpunit.result.cache
