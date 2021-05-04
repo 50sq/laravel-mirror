@@ -3,7 +3,6 @@
 namespace Mirror;
 
 use Illuminate\Support\Manager;
-use Mirror\Contracts\MirrorContract;
 use Mirror\Mirrors\FreshdeskMirror;
 
 class MirrorManager extends Manager
@@ -29,7 +28,7 @@ class MirrorManager extends Manager
     }
 
     /**
-     * Resolve a mirror driver instance.
+     * Return a mirror provider instance.
      *
      * @param  string|null  $name
      * @return array
@@ -46,7 +45,7 @@ class MirrorManager extends Manager
     }
 
     /**
-     * Resolve a cart driver.
+     * Resolve a mirror provider.
      *
      * @param  string  $name
      * @return \Mirror\Contracts\MirrorContract

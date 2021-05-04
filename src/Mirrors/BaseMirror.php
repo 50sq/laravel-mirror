@@ -13,6 +13,11 @@ abstract class BaseMirror implements MirrorContract, ShouldQueue
 
     protected $config = [];
 
+    /**
+     * Configure the provider.
+     *
+     * @param array $config
+     */
     public function configure(array $config)
     {
         $this->config = $config;

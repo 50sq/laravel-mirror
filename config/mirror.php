@@ -2,6 +2,16 @@
 
 return [
 
+    /*
+    |--------------------------------------------------------------------------
+    | Mirrors
+    |--------------------------------------------------------------------------
+    |
+    | Define the mirrors and any necessary configuration required to mirror
+    | the user attributes.
+    |
+    */
+
     'mirrors' => [
 
         'freshdesk' => [
