@@ -1,5 +1,5 @@
 {
-  "name": "hotmeteor/laravel-mirror",
+  "name": "50sq/laravel-mirror",
   "description": "Push user profiles to any of your services",
   "type": "library",
   "license": "MIT",
@@ -13,6 +13,10 @@
     {
       "name": "Adam Campbell",
       "email": "adam@hotmeteor.com"
+    },
+    {
+      "name": "Yaz Jallad",
+      "email": "yazjallad@gmail.com"
     }
   ],
   "require": {
