@@ -38,24 +38,24 @@ class SendQueuedReflections implements ShouldQueue
     public function __construct($reflections, array $mirrors = null)
     {
         $this->mirrors = $mirrors;
-        $this->reflectables = $this->wrapNotifiables($reflections);
+        $this->reflectables = $this->wrapReflectables($reflections);
     }
 
     /**
-     * Wrap the notifiable(s) in a collection.
+     * Wrap the reflectable(s) in a collection.
      *
      * @param  \Mirror\Reflectable|\Illuminate\Support\Collection  $reflections
      * @return \Illuminate\Support\Collection
      */
-    protected function wrapNotifiables($notifiables)
+    protected function wrapReflectables($reflectables)
     {
-        if ($notifiables instanceof Collection) {
-            return $notifiables;
-        } elseif ($notifiables instanceof Model) {
-            return EloquentCollection::wrap($notifiables);
+        if ($reflectables instanceof Collection) {
+            return $reflectables;
+        } elseif ($reflectables instanceof Model) {
+            return EloquentCollection::wrap($reflectables);
         }
 
-        return Collection::wrap($notifiables);
+        return Collection::wrap($reflectables);
     }
 
     /**
