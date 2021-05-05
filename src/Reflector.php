@@ -167,7 +167,7 @@ class Reflector
             return $this->app['config']["mirror.mirrors.{$name}"];
         }
 
-        return ['driver' => 'null'];
+        return [];
     }
 
     /**
