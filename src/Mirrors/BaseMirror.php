@@ -2,15 +2,10 @@
 
 namespace Mirror\Mirrors;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Mirror\Contracts\MirrorContract;
 
-abstract class BaseMirror implements MirrorContract, ShouldQueue
+abstract class BaseMirror implements MirrorContract
 {
-    use InteractsWithQueue, Queueable;
-
     protected $config = [];
 
     /**

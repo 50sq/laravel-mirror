@@ -4,5 +4,5 @@ namespace Mirror\Contracts;
 
 interface MirrorContract
 {
-    public function reflect($user);
+    public function reflect($reflectable);
 }

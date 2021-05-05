@@ -2,11 +2,19 @@
 
 namespace Mirror;
 
+use Illuminate\Contracts\Bus\Dispatcher as Bus;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Manager;
-use Mirror\Mirrors\FreshdeskMirror;
 
 class MirrorManager extends Manager
 {
+    /**
+     * The default mirror to reflect to.
+     *
+     * @var string
+     */
+    protected $defaultMirror = 'null';
+
     /**
      * The array of resolved mirrors.
      *
@@ -15,73 +23,41 @@ class MirrorManager extends Manager
     protected $drivers = [];
 
     /**
-     * Reflect user profiles to all defined mirrors.
+     * Reflect to the given mirrors.
      *
-     * @param $user
+     * @param  \Illuminate\Support\Collection|array|mixed  $reflectables
+     * @param  array|null  $mirrors
      * @return void
      */
-    public function reflect($user)
+    public function reflect($reflectables, array $mirrors = null)
     {
-        foreach (config('mirror.mirrors') as $item => $config) {
-            $this->mirror($item)->reflect($user);
-        }
+        (new Reflector(
+            $this, $this->container->make(Bus::class), $this->container->make(Dispatcher::class), $this->getConfig())
+        )->reflect($reflectables, $mirrors);
     }
 
     /**
-     * Return a mirror provider instance.
+     * Reflect the given reflectables immediately.
      *
-     * @param  string|null  $name
+     * @param  \Illuminate\Support\Collection|array|mixed  $reflectables
+     * @param  array|null  $mirrors
+     * @return void
+     */
+    public function reflectNow($reflectables, array $mirrors = null)
+    {
+        (new Reflector(
+            $this, $this->container->make(Bus::class), $this->container->make(Dispatcher::class), $this->getConfig())
+        )->reflectNow($reflectables, $mirrors);
+    }
+
+    /**
+     * Get the configuration.
+     *
      * @return array
      */
-    public function mirror($name = null)
+    protected function getConfig()
     {
-        $name = $name ?: $this->getDefaultDriver();
-
-        if (! isset($this->drivers[$name])) {
-            $this->drivers[$name] = $this->resolve($name);
-        }
-
-        return $this->drivers[$name];
-    }
-
-    /**
-     * Resolve a mirror provider.
-     *
-     * @param  string  $name
-     * @return \Mirror\Contracts\MirrorContract
-     */
-    protected function resolve($name)
-    {
-        $config = $this->getConfig($name);
-
-        return $this->createDriver($name)->configure($config);
-    }
-
-    /**
-     * Get the mirror configuration.
-     *
-     * @param  string  $name
-     * @return array
-     */
-    protected function getConfig($name)
-    {
-        if (! is_null($name) && $name !== 'null') {
-            return $this->app['config']["mirror.mirrors.{$name}"];
-        }
-
-        return ['driver' => 'null'];
-    }
-
-    /**
-     * Dynamically pass calls to the default driver.
-     *
-     * @param  string  $method
-     * @param  array  $parameters
-     * @return mixed
-     */
-    public function __call($method, $parameters)
-    {
-        return $this->mirror()->$method(...$parameters);
+        return $this->container['config']['mirror'];
     }
 
     /**
@@ -89,16 +65,6 @@ class MirrorManager extends Manager
      */
     public function getDefaultDriver()
     {
-        return 'null';
-    }
-
-    /**
-     * Create Freshdesk driver.
-     *
-     * return \Mirror\Contracts\MirrorContract
-     */
-    public function createFreshdeskDriver()
-    {
-        return new FreshdeskMirror();
+        return $this->defaultMirror;
     }
 }

@@ -3,15 +3,20 @@
 namespace Mirror\Mirrors;
 
 use Illuminate\Support\Facades\Http;
-use Mirror\User;
 
 class FreshdeskMirror extends BaseMirror
 {
-    public function reflect($user)
+    public function reflect($reflectable)
     {
+        if (! $reflectable->reflectTo('freshdesk')) {
+            return;
+        }
+
+        $data = $reflectable->reflectTo('freshdesk');
+
         Http::asJson()->withToken($this->config['key'])->put(
             '/',
-            (new User())->setRaw($user)->getRaw()
+            $data
         );
     }
 }
