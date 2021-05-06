@@ -4,7 +4,7 @@ namespace Mirror\Mirrors;
 
 use Mirror\Contracts\MirrorContract;
 
-abstract class BaseMirror implements MirrorContract
+abstract class AbstractMirror implements MirrorContract
 {
     protected $config = [];
 

@@ -16,6 +16,7 @@ return [
 
         'freshdesk' => [
             'key' => env('FRESHDESK_API_KEY'),
+            'domain' => env('FRESHDESK_ACCOUNT_DOMAIN'),
         ],
 
         'hubspot' => [

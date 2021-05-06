@@ -5,6 +5,7 @@ namespace Mirror;
 use Illuminate\Contracts\Bus\Dispatcher as Bus;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Manager;
+use InvalidArgumentException;
 
 class MirrorManager extends Manager
 {
@@ -66,5 +67,36 @@ class MirrorManager extends Manager
     public function getDefaultDriver()
     {
         return $this->defaultMirror;
+    }
+
+    /**
+     * Create an instance of the database driver.
+     *
+     * @return \Mirror\Mirrors\FreshdeskMirror
+     */
+    protected function createFreshdeskDriver()
+    {
+        return $this->container->make(Mirrors\FreshdeskMirror::class);
+    }
+
+    /**
+     * Create a new driver instance.
+     *
+     * @param  string  $driver
+     * @return mixed
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected function createDriver($driver)
+    {
+        try {
+            return parent::createDriver($driver);
+        } catch (InvalidArgumentException $e) {
+            if (class_exists($driver)) {
+                return $this->container->make($driver);
+            }
+
+            throw $e;
+        }
     }
 }

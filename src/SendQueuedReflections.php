@@ -4,8 +4,6 @@ namespace Mirror;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
@@ -51,8 +49,6 @@ class SendQueuedReflections implements ShouldQueue
     {
         if ($reflectables instanceof Collection) {
             return $reflectables;
-        } elseif ($reflectables instanceof Model) {
-            return EloquentCollection::wrap($reflectables);
         }
 
         return Collection::wrap($reflectables);

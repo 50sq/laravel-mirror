@@ -2,8 +2,6 @@
 
 namespace Mirror;
 
-use Illuminate\Database\Eloquent\Collection as ModelCollection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Mirror\Events\MirrorReflecting;
@@ -148,26 +146,10 @@ class Reflector
     protected function formatReflectables($reflectables)
     {
         if (! $reflectables instanceof Collection && ! is_array($reflectables)) {
-            return $reflectables instanceof Model
-                ? new ModelCollection([$reflectables]) : [$reflectables];
+            return [$reflectables];
         }
 
         return $reflectables;
-    }
-
-    /**
-     * Get the mirror configuration.
-     *
-     * @param  string  $name
-     * @return array
-     */
-    protected function getConfig($name)
-    {
-        if (! is_null($name) && $name !== 'null') {
-            return $this->app['config']["mirror.mirrors.{$name}"];
-        }
-
-        return [];
     }
 
     /**
